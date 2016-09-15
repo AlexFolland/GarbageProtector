@@ -99,14 +99,16 @@ InterfaceOptions_AddCategory(optionsMenu)
 --UI reload doesn't seem to fire ADDON_LOADED
 optionsMenu:RegisterEvent("PLAYER_ENTERING_WORLD")
 optionsMenu:RegisterEvent("ADDON_LOADED")
-optionsMenu:SetScript("OnEvent", function (self, event, ...)
-    InitializeGarbageProtectorDB(GarbageProtectorDBDefaults)
-    GarbageProtectorEnabledCheckButton:SetChecked(GarbageProtectorDB.Enabled)
-    GarbageProtectorHandlecollectgarbageCheckButton:SetChecked(GarbageProtectorDB.Handlecollectgarbage)
-    GarbageProtectorHandleUpdateAddOnMemoryUsageCheckButton:SetChecked(GarbageProtectorDB.HandleUpdateAddOnMemoryUsage)
+optionsMenu:SetScript("OnEvent", function (self, event, arg1, ...)
+    if event == "PLAYER_ENTERING_WORLD" or arg1 == "GarbageProtector" then
+        InitializeGarbageProtectorDB(GarbageProtectorDBDefaults)
+        GarbageProtectorEnabledCheckButton:SetChecked(GarbageProtectorDB.Enabled)
+        GarbageProtectorHandlecollectgarbageCheckButton:SetChecked(GarbageProtectorDB.Handlecollectgarbage)
+        GarbageProtectorHandleUpdateAddOnMemoryUsageCheckButton:SetChecked(GarbageProtectorDB.HandleUpdateAddOnMemoryUsage)
 
-    optionsMenu:UnregisterAllEvents()
-    optionsMenu:SetScript("OnEvent", nil)
+        optionsMenu:UnregisterAllEvents()
+        optionsMenu:SetScript("OnEvent", nil)
+    end
 end)
 
 --CLI options menu
