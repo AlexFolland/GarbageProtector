@@ -21,7 +21,7 @@ end
 --force lets you guarantee target state (true == enabled) (false == disabled)
 --shouldPrint decides whether the setter prints the setting's new state
 function ToggleGarbageProtector(force, shouldPrint)
-    if GarbageProtectorDB.Enabled == nil then InitializeGarbageProtectorDB(GarbageProtectorDBDefaults) end
+    if GarbageProtectorDB == nil or GarbageProtectorDB.Enabled == nil then InitializeGarbageProtectorDB(GarbageProtectorDBDefaults) end
     if force ~= nil then GarbageProtectorDB.Enabled = force else GarbageProtectorDB.Enabled = not GarbageProtectorDB.Enabled end
     if shouldPrint ~= nil and shouldPrint == true then
         print("GarbageProtector is now "..(GarbageProtectorDB.Enabled and "enabled." or "disabled."))
@@ -31,7 +31,7 @@ function ToggleGarbageProtector(force, shouldPrint)
 end
 
 function ToggleHandlecollectgarbage(force, shouldPrint)
-    if GarbageProtectorDB.Handlecollectgarbage == nil then InitializeGarbageProtectorDB(GarbageProtectorDBDefaults) end
+    if GarbageProtectorDB == nil or GarbageProtectorDB.Handlecollectgarbage == nil then InitializeGarbageProtectorDB(GarbageProtectorDBDefaults) end
     if force ~= nil then GarbageProtectorDB.Handlecollectgarbage = force else GarbageProtectorDB.Handlecollectgarbage = not GarbageProtectorDB.Handlecollectgarbage end
     if shouldPrint ~= nil and shouldPrint == true then
         print("GarbageProtector: Handling collectgarbage calls is now "..(GarbageProtectorDB.Handlecollectgarbage and "enabled." or "disabled."))
@@ -41,7 +41,7 @@ function ToggleHandlecollectgarbage(force, shouldPrint)
 end
 
 function ToggleHandleUpdateAddOnMemoryUsage(force, shouldPrint)
-    if GarbageProtectorDB.HandleUpdateAddOnMemoryUsage == nil then InitializeGarbageProtectorDB(GarbageProtectorDBDefaults) end
+    if GarbageProtectorDB == nil or GarbageProtectorDB.HandleUpdateAddOnMemoryUsage == nil then InitializeGarbageProtectorDB(GarbageProtectorDBDefaults) end
     if force ~= nil then GarbageProtectorDB.HandleUpdateAddOnMemoryUsage = force else GarbageProtectorDB.HandleUpdateAddOnMemoryUsage = not GarbageProtectorDB.HandleUpdateAddOnMemoryUsage end
     if shouldPrint ~= nil and shouldPrint == true then
         print("GarbageProtector: Handling UpdateAddOnMemoryUsage calls is now "..(GarbageProtectorDB.HandleUpdateAddOnMemoryUsage and "enabled." or "disabled."))
@@ -158,8 +158,8 @@ oldcollectgarbage("setpause", 110)
 oldcollectgarbage("setstepmul", 200)
 
 collectgarbage = function(opt, arg)
-    if (GarbageProtectorDB.Handlecollectgarbage ~= nil and GarbageProtectorDB.Handlecollectgarbage == false)
-    or (GarbageProtectorDB.Enabled ~= nil and GarbageProtectorDB.Enabled == false) then
+    if GarbageProtectorDB == nil or GarbageProtectorDB.Enabled == nil or GarbageProtectorDB.Handlecollectgarbage == nil then InitializeGarbageProtectorDB(GarbageProtectorDBDefaults) end
+    if GarbageProtectorDB.Handlecollectgarbage == false or GarbageProtectorDB.Enabled == false then
         return oldcollectgarbage(opt, arg)
     end
 
@@ -199,8 +199,8 @@ end
 --this hook makes memory profiling addons that call GetAddOnMemoryUsage show 0 or the last returned value of course
 local oldUpdateAddOnMemoryUsage = UpdateAddOnMemoryUsage
 UpdateAddOnMemoryUsage = function(...)
-    if (GarbageProtectorDB.HandleUpdateAddOnMemoryUsage ~= nil and GarbageProtectorDB.HandleUpdateAddOnMemoryUsage == false)
-    or (GarbageProtectorDB.Enabled ~= nil and GarbageProtectorDB.Enabled == false) then
+    if GarbageProtectorDB == nil or GarbageProtectorDB.Enabled == nil or GarbageProtectorDB.HandleUpdateAddOnMemoryUsage == nil then InitializeGarbageProtectorDB(GarbageProtectorDBDefaults) end
+    if GarbageProtectorDB.HandleUpdateAddOnMemoryUsage == false or GarbageProtectorDB.Enabled == false then
         return oldUpdateAddOnMemoryUsage(...)
     end
 end
