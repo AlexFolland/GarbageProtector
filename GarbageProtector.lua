@@ -98,13 +98,14 @@ InterfaceOptions_AddCategory(optionsMenu)
 --handle PLAYER_ENTERING_WORLD events for initializing GUI options menu widget states at the right time
 --UI reload doesn't seem to fire ADDON_LOADED
 optionsMenu:RegisterEvent("PLAYER_ENTERING_WORLD")
+optionsMenu:RegisterEvent("ADDON_LOADED")
 optionsMenu:SetScript("OnEvent", function (self, event, ...)
     InitializeGarbageProtectorDB(GarbageProtectorDBDefaults)
     GarbageProtectorEnabledCheckButton:SetChecked(GarbageProtectorDB.Enabled)
     GarbageProtectorHandlecollectgarbageCheckButton:SetChecked(GarbageProtectorDB.Handlecollectgarbage)
     GarbageProtectorHandleUpdateAddOnMemoryUsageCheckButton:SetChecked(GarbageProtectorDB.HandleUpdateAddOnMemoryUsage)
 
-    optionsMenu:UnregisterEvent(event)
+    optionsMenu:UnregisterAllEvents()
     optionsMenu:SetScript("OnEvent", nil)
 end)
 
