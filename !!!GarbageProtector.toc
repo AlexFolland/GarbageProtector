@@ -1,4 +1,4 @@
-## Interface: 70200
+## Interface: 70300
 ## Title: GarbageProtector
 ## Notes: Intercepts irresponsible collectgarbage calls to prevent chunky lockups and freezes
 ## Author: Alex Folland
