@@ -180,6 +180,7 @@ collectgarbage = function(opt, arg)
     elseif opt == "restart" then
         --why?  no
     elseif opt == "step" then
+	--[[ used to think small steps were okay, but it turned out they weren't when a Dugi addon was using a step value of 100, so no here too
         if arg ~= nil then
             if arg <= 10000 then
                 --addons running collectgarbage in small steps are okay
@@ -189,6 +190,7 @@ collectgarbage = function(opt, arg)
             --default step value is probably okay too
             return oldcollectgarbage(opt, arg)
         end
+	]]
     else
         --if lua adds something new like isrunning to this, it should still work
         return oldcollectgarbage(opt, arg)
