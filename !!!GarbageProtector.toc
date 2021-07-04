@@ -1,4 +1,7 @@
 ## Interface: 90100
+## Interface-Retail: 90100
+## Interface-Classic: 11307
+## Interface-BCC: 20501
 ## Title: GarbageProtector
 ## Notes: Intercepts irresponsible collectgarbage calls to prevent chunky lockups and freezes
 ## Author: Alex Folland
@@ -6,3 +9,5 @@
 GarbageProtector.lua
 ## SavedVariables: GarbageProtectorDB
 ## SavedVariablesPerCharacter: GarbageProtectorDB
+
+## X-Curse-Project-ID: 102242
