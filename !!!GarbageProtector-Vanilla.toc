@@ -1,4 +1,4 @@
-## Interface: 11307
+## Interface: 11403
 ## Title: GarbageProtector
 ## Notes: Intercepts irresponsible collectgarbage calls to prevent chunky lockups and freezes
 ## Author: Alex Folland
