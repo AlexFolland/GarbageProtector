@@ -53,7 +53,7 @@ end
 --GUI options menu; manually crafted for funzies, mental laziness, naivety, full control, or something
 local optionsMenu = CreateFrame("Frame", "GarbageProtectorOptionsMenu", InterfaceOptionsFramePanelContainer)
 
-local enabledCheckButton = CreateFrame("CheckButton", "GarbageProtectorEnabledCheckButton", optionsMenu, "OptionsCheckButtonTemplate")
+local enabledCheckButton = CreateFrame("CheckButton", "GarbageProtectorEnabledCheckButton", optionsMenu, "InterfaceOptionsCheckButtonTemplate")
 enabledCheckButton:SetPoint("TOPLEFT", 16, -16)
 enabledCheckButton:SetHitRectInsets(0, -50, 0, 0)
 enabledCheckButton:SetScript("OnClick", function() ToggleGarbageProtector(nil, false) end)
@@ -66,7 +66,7 @@ end)
 enabledCheckButton:SetScript("OnLeave", function() GameTooltip:Hide() end)
 _G[enabledCheckButton:GetName() .. "Text"]:SetText("Enabled")
 
-local handlecollectgarbageCheckButton = CreateFrame("CheckButton", "GarbageProtectorHandlecollectgarbageCheckButton", optionsMenu, "OptionsCheckButtonTemplate")
+local handlecollectgarbageCheckButton = CreateFrame("CheckButton", "GarbageProtectorHandlecollectgarbageCheckButton", optionsMenu, "InterfaceOptionsCheckButtonTemplate")
 handlecollectgarbageCheckButton:SetPoint("TOPLEFT", enabledCheckButton, "BOTTOMLEFT", 0, -8)
 handlecollectgarbageCheckButton:SetScript("OnClick", function() ToggleHandlecollectgarbage(nil, false) end)
 handlecollectgarbageCheckButton:SetHitRectInsets(0, -170, 0, 0)
@@ -79,7 +79,7 @@ end)
 handlecollectgarbageCheckButton:SetScript("OnLeave", function() GameTooltip:Hide() end)
 _G[handlecollectgarbageCheckButton:GetName() .. "Text"]:SetText("Handle collectgarbage calls")
 
-local handleUpdateAddOnMemoryUsageCheckButton = CreateFrame("CheckButton", "GarbageProtectorHandleUpdateAddOnMemoryUsageCheckButton", optionsMenu, "OptionsCheckButtonTemplate")
+local handleUpdateAddOnMemoryUsageCheckButton = CreateFrame("CheckButton", "GarbageProtectorHandleUpdateAddOnMemoryUsageCheckButton", optionsMenu, "InterfaceOptionsCheckButtonTemplate")
 handleUpdateAddOnMemoryUsageCheckButton:SetPoint("TOPLEFT", handlecollectgarbageCheckButton, "BOTTOMLEFT", 0, -8)
 handleUpdateAddOnMemoryUsageCheckButton:SetScript("OnClick", function() ToggleHandleUpdateAddOnMemoryUsage(nil, false) end)
 handleUpdateAddOnMemoryUsageCheckButton:SetHitRectInsets(0, -260, 0, 0)
@@ -141,6 +141,7 @@ SlashCmdList["GarbageProtector"] = function(msg)
             ToggleHandleUpdateAddOnMemoryUsage(nil, true)
         end
     elseif (param1 == "") then
+        InterfaceOptionsFrame_OpenToCategory(optionsMenu)
         InterfaceOptionsFrame_OpenToCategory(optionsMenu)
     else
         print("GarbageProtector: "..(param1 == "help" and "" or "Unrecognized command. ").."Recognized commands:")
